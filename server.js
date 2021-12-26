@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 
-mongoose.connect('mongodb://localhost/users');
+mongoose.connect('mongodb://localhost:27017/users');
 const db = mongoose.connection
 
 db.on('error', function(err) {
@@ -14,6 +15,7 @@ db.once('open', function() {
 });
 
 app.use(express.json());
+app.use(cors());
 
 const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
